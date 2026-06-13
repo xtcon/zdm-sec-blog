@@ -1,0 +1,62 @@
+---
+layout: default
+title: "安全日报 2026-06-14: CVE 速览 + 攻击面情报"
+date: 2026-06-14
+tags: [安全日报, CVE, 情报]
+categories: [安全日报]
+---
+
+## 今日高危 CVE 速览
+
+### 🔥 DbGate 系列 RCE（3个漏洞）
+
+**CVE-2026-48017 (CVSS 8.8)** · **CVE-2026-47670 (CVSS 9.5)** · **CVE-2026-47669 (CVSS 9.5)**
+
+DbGate loadReader 端点 functionName 代码注入 RCE。process.binding("spawn_sync") 和 import() 两种方式绕过 require=null 沙箱。同一项目的 Zip Slip 实现零认证任意文件写。详见今日深度分析。
+
+### Twig 沙箱逃逸
+
+**CVE-2026-47732 (CVSS 7.5)** · **CVE-2026-24425 (CVSS 8.8)**
+
+SandboxNodeVisitor 对隐式 __toString() 调用不做 checkMethodAllowed 检查，导致沙箱逃逸。影响所有使用 Twig sandbox 的 Symfony 项目。
+
+### Puma PROXY Protocol
+
+**CVE-2026-47737** · **CVE-2026-47736** (CVSS 7.5)
+
+PROXY Protocol v1 解析器在持久连接上接受重复协议头，导致源IP伪造和远程内存耗尽。影响所有使用 proxy_protocol 的 Puma 部署。
+
+### NASA AMMOS Toolkit
+
+**CVE-2026-47731 (CVSS 9.1)**
+
+Binary Stream Capture (BSC) 组件暴露无认证 HTTP API，路径穿越导致任意文件读取。NASA 的空间任务工具也存在安全漏洞。
+
+### 其他高分 CVE
+
+| CVE | 评分 | 说明 |
+|-----|:----:|------|
+| CVE-2026-26422 | 8.4 | clash-verge-service-ipc LPE（world-reachable IPC） |
+| CVE-2026-49494 | 8.7 | Comodo Internet Security Inspect.sys IPv6 整数下溢 |
+| CVE-2026-27671 | 9.8 | SAP Kernel RFC 协议校验缺陷 |
+| CVE-2026-40128 | 9.0 | SAP NetWeaver Java Web Container 未认证认证绕过 |
+
+## 攻击面情报
+
+### npm 供应链持续恶化
+
+Shai-Hulud 蠕虫在 6 月仍在活跃。@redhat-cloud-services 命名空间于 6 月 1 日被整体投毒。
+npm 生命周期钩子（preinstall/postinstall）仍是投毒首选载体。
+
+### 浏览器插件攻防
+
+CVE-2026-0628 揭示 Chrome Gemini AI 面板可被恶意扩展劫持。
+2026 年浏览器插件成为数据窃取的首选入口——TOTP 种子、Meta Business 数据、会话 cookie 均可通过插件窃取。
+
+## 数据统计
+
+- God's Eye 扫描源: 19个（含8个OSINT源）
+- 今日高分事件(≥7.0): 10+ 条
+- OSINT新增类型: 证书/子域名/历史快照/凭据泄露
+
+> ⚠️ 本文仅做技术分析和安全科普，切勿用于非法用途。请在授权环境中验证。
